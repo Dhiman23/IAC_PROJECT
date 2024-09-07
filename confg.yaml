@@ -18,7 +18,7 @@
       ansible.builtin.apt_repository:
         repo: deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary
         state: present
-        filename: jenkins.stable
+        filename: jenkins-stable
   
     - name: Install Jenkins
       ansible.builtin.apt:
