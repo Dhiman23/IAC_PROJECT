@@ -16,7 +16,7 @@ mkdir -p ~/Ansible && cd ~/Ansible
 pwd
 
 # Clone the server-setup repository
-git clone https://github.com/Dhiman23/IAC_PROJECT.git
+git clone https://github.com/Dhiman23/IAC_PROJECT.gitśś
 
 # Navigate into the cloned repository
 cd server-setup1
