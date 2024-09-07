@@ -4,10 +4,10 @@
   become: true
 
   tasks:
-    # - name: Update machine
-    #   apt:
-    #     name: "*"
-    #     state: latest
+    - name: Update machine
+      apt:
+        name: "*"
+        state: latest
 
     - name: Add Jenkins repository GPG key
       ansible.builtin.get_url:
@@ -19,6 +19,7 @@
         repo: deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary
         state: present
         filename: jenkins.list
+        ignore_errors: yes
 
     # - name: Update apt cache
     #   ansible.builtin.apt:
