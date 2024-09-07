@@ -1,6 +1,6 @@
 ---
 - name: Configure Jenkins, Trivy, SonarQube, and Docker
-  hosts: all
+  hosts: localhost
   remote_user: ubuntu
   become: true
 
