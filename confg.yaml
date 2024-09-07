@@ -9,21 +9,26 @@
         name: "*"
         state: latest
 
-    - name: Add Jenkins repository GPG key
+    - name: Download Jenkins key
       ansible.builtin.get_url:
-        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
-        dest: /usr/share/keyrings/jenkins.gpg
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        dest: /usr/share/keyrings/jenkins-keyring.asc
 
-    - name: Add Jenkins repository
+    - name: Add Jenkins repository into sources list
       ansible.builtin.apt_repository:
-        repo: deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary
+        repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
         state: present
         filename: jenkins.list
-    
+
+    - name: Update packages again
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
     - name: Install fontconfig
       ansible.builtin.apt:
         name: fontconfig
-        state: present
+        tate: present
 
     - name: Install Java
       ansible.builtin.apt:
