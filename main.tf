@@ -22,7 +22,7 @@ resource "aws_instance" "jenkins" {
   instance_type   = "t2.medium"
   key_name        = "imp"
   security_groups = [aws_security_group.web-sg-1.name]
-  user_data       = templatefile("./installConfig.sh",{})
+  user_data       = templatefile("./installConfig.sh", {})
 
   root_block_device {
     volume_size = 20
