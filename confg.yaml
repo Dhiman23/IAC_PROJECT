@@ -42,8 +42,8 @@
         dest: /tmp/trivy_0.18.3_Linux-64bit.deb
 
     - name: Install Trivy using dpkg
-      ansible.builtin.dpkg:
-        name: /tmp/trivy_0.18.3_Linux-64bit.deb
+      ansible.builtin.apt:
+        deb: /tmp/trivy_0.18.3_Linux-64bit.deb
 
     # Install Docker
     - name: Install prerequisite packages for Docker
