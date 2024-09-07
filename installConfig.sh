@@ -22,4 +22,4 @@ git clone https://github.com/Dhiman23/IAC_PROJECT.git
 cd IAC_PROJECT
 
 # Run the Ansible playbook
-ansible-playbook -i localhost jenkins.yml
+ansible-playbook -i localhost confg.yml
