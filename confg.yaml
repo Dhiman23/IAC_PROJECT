@@ -4,10 +4,10 @@
   become: true
 
   tasks:
-    - name: Update machine
-      apt:
-        name: "*"
-        state: latest
+    # - name: Update machine
+    #   apt:
+    #     name: "*"
+    #     state: latest
 
     - name: Download Jenkins key
       ansible.builtin.get_url:
