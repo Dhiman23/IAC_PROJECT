@@ -20,9 +20,9 @@
         state: present
         filename: jenkins
 
-    - name: Update apt cache
-      ansible.builtin.apt:
-        update_cache: yes
+    # - name: Update apt cache
+    #   ansible.builtin.apt:
+    #     update_cache: yes
 
     - name: Install Jenkins
       ansible.builtin.apt:
