@@ -1,6 +1,6 @@
 ---
 - name: This playbook for configuring all tools like Jenkins, Trivy, SonarQube
-  hosts: localhost
+  hosts: all
   become: true
 
   tasks:
