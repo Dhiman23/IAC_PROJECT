@@ -18,7 +18,7 @@
       ansible.builtin.apt_repository:
         repo: deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary
         state: present
-        filename: jenkins
+        filename: jenkins.list
 
     # - name: Update apt cache
     #   ansible.builtin.apt:
