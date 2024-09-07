@@ -9,19 +9,24 @@
         name: "*"
         state: latest
       
-    - name: URL for Jenkins
+    - name: Download Jenkins key
       ansible.builtin.get_url:
-        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
-        dest: /usr/share/keyrings/jenkins.gpg
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        dest: /usr/share/keyrings/jenkins-keyring.asc
 
-    - name: Add Jenkins repository
+    - name: Add Jenkins repository into sources list
       ansible.builtin.apt_repository:
-        repo: deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary
+        repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
         state: present
         filename: jenkins.list
-    
+
+    - name: Update packages again
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
     - name: Install fontconfig
-      apt:
+      ansible.builtin.apt:
         name: fontconfig
         state: present
 
@@ -31,15 +36,15 @@
         state: present
 
     - name: Install Jenkins
-      apt:
+      ansible.builtin.apt:
         name: jenkins
         state: present
 
     - name: Start Jenkins service
-      systemd:
+      ansible.builtin.systemd:
         name: jenkins
         state: started
-        enabled: yes
+        enabled: yes  
 
 # Installing Trivy
     - name: Download Trivy package
