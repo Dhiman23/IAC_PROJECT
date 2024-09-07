@@ -6,8 +6,8 @@
   tasks:
     - name: Update machine
       apt:
-        update_cache: yes
-        upgrade: dist
+        name: "*"
+        state: latest
 
     - name: URL for Jenkins
       ansible.builtin.get_url:
