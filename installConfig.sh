@@ -19,7 +19,7 @@ pwd
 git clone https://github.com/Dhiman23/IAC_PROJECT.git
 
 # Navigate into the cloned repository
-cd server-setup1
+cd IAC_PROJECT
 
 # Run the Ansible playbook
 ansible-playbook -i localhost jenkins.yml
