@@ -1,3 +1,9 @@
+#!/bin/bash
+
+# Redirect all output to a log file
+exec > >(tee -i /var/log/user-data.log)
+exec 2>&1
+
 sudo apt update -y
 
 # Install necessary packages
