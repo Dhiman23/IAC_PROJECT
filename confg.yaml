@@ -1,32 +1,27 @@
 ---
 - name: This playbook for configuring all tools like Jenkins, Trivy, SonarQube
-  hosts: all
+  hosts: localhost
   become: true
 
   tasks:
     - name: Update machine
       apt:
-        name: "*"
-        state: latest
-      
-    - name: Download Jenkins key
-      ansible.builtin.get_url:
-        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-        dest: /usr/share/keyrings/jenkins-keyring.asc
+        update_cache: yes
+        upgrade: dist
 
-    - name: Add Jenkins repository into sources list
+    - name: URL for Jenkins
+      ansible.builtin.get_url:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+        dest: /usr/share/keyrings/jenkins.gpg
+
+    - name: Add Jenkins repository
       ansible.builtin.apt_repository:
-        repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
+        repo: deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary
         state: present
         filename: jenkins
 
-    - name: Update packages again
-      ansible.builtin.apt:
-        name: "*"
-        state: latest
-
     - name: Install fontconfig
-      ansible.builtin.apt:
+      apt:
         name: fontconfig
         state: present
 
@@ -36,15 +31,15 @@
         state: present
 
     - name: Install Jenkins
-      ansible.builtin.apt:
+      apt:
         name: jenkins
         state: present
 
     - name: Start Jenkins service
-      ansible.builtin.systemd:
+      systemd:
         name: jenkins
         state: started
-        enabled: yes  
+        enabled: yes
 
 # Installing Trivy
     - name: Download Trivy package
@@ -56,7 +51,6 @@
       ansible.builtin.apt:
         deb: /tmp/trivy_0.18.3_Linux-64bit.deb
         update_cache: yes
-
 
 # Installing Docker
     - name: Install prerequisite packages
@@ -85,7 +79,7 @@
       ansible.builtin.apt_repository:
         repo: 'deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable'
         state: present
-        filename: docker.list
+        filename: docker
 
     - name: Install Docker packages
       apt:
@@ -109,7 +103,6 @@
         mode: '0777'
 
 # Running SonarQube container
-
     - name: Run SonarQube container
       docker_container:
         name: sonarqube
