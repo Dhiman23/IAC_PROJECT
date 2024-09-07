@@ -9,7 +9,7 @@
         name: "*"
         state: latest
 
-    - name: URL for Jenkins
+    - name: Add Jenkins repository GPG key
       ansible.builtin.get_url:
         url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
         dest: /usr/share/keyrings/jenkins.gpg
@@ -18,10 +18,10 @@
       ansible.builtin.apt_repository:
         repo: deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary
         state: present
-        filename: jenkins
-
+        filename: jenkins.list
+    
     - name: Install fontconfig
-      apt:
+      ansible.builtin.apt:
         name: fontconfig
         state: present
 
@@ -31,12 +31,12 @@
         state: present
 
     - name: Install Jenkins
-      apt:
+      ansible.builtin.apt:
         name: jenkins
         state: present
 
     - name: Start Jenkins service
-      systemd:
+      ansible.builtin.systemd:
         name: jenkins
         state: started
         enabled: yes
