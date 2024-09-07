@@ -18,7 +18,7 @@
       ansible.builtin.apt_repository:
         repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
         state: present
-        filename: jenkins.list
+        filename: jenkins
 
     - name: Update packages again
       ansible.builtin.apt:
